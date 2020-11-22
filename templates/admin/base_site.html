@@ -1,0 +1,14 @@
+{% extends 'admin/base.html' %} {% load static %} {% block branding %}
+<h1 id="head">
+  <img
+    src="{% static 'img/logo.png' %}"
+    alt="Amilbnb"
+    width="100"
+    height="50"
+    class="brand_img"
+  />
+  Admin Area
+</h1>
+{% endblock %} {% block extrastyle %}
+<link rel="stylesheet" href="{% static 'css/admin.css' %}" />
+{% endblock %}
