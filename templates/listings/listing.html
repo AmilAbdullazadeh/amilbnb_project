@@ -1,11 +1,11 @@
-{% extends 'base.html' %} {% block content %} {% load static %}
+{% extends 'base.html' %} {% load humanize %} {% block content %} {% load static %}
 
 <section id="showcase-inner" class="py-5 text-white">
   <div class="container">
     <div class="row text-center">
       <div class="col-md-12">
-        <h1 class="display-4">45 Drivewood Circle</h1>
-        <p class="lead"><i class="fas fa-map-marker"></i> Norwood MA, 02062</p>
+        <h1 class="display-4">{{ listing.title }}</h1>
+        <p class="lead"><i class="fas fa-map-marker"></i> {{ listing.city }}, {{ listing.state }}, {{ listing.zipcode }} </p>
       </div>
     </div>
   </div>
@@ -17,12 +17,12 @@
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="index.html">Home</a>
+          <a href="{% url 'index' %}">Home</a>
         </li>
         <li class="breadcrumb-item">
-          <a href="listings.html">Listings</a>
+          <a href="{% url 'listings' %}">Listings</a>
         </li>
-        <li class="breadcrumb-item active">42 Drivewood Circle</li>
+        <li class="breadcrumb-item active">{{ listing.title }}</li>
       </ol>
     </nav>
   </div>
@@ -31,89 +31,73 @@
 <!-- Listing -->
 <section id="listing" class="py-4">
   <div class="container">
-    <a href="listings.html" class="btn btn-light mb-4">Back To Listings</a>
+    <a href="{% url 'listings' %}" class="btn btn-light mb-4">Back To Listings</a>
     <div class="row">
       <div class="col-md-9">
         <!-- Home Main Image -->
         <img
-          src="assets/img/homes/home-1.jpg"
-          alt=""
+          src="{{ listing.photo_main.url }}"
+          alt="{{ listing.title }}"
           class="img-main img-fluid mb-3"
         />
         <!-- Thumbnails -->
         <div class="row mb-5 thumbs">
+        {% if listing.photo_2 %}
           <div class="col-md-2">
             <a
-              href="assets/img/homes/home-inside-1.jpg"
+              href="{{ listing.photo_2.url }}"
               data-lightbox="home-images"
             >
               <img
-                src="assets/img/homes/home-inside-1.jpg"
-                alt=""
+                src="{{ listing.photo_2.url }}"
+                alt="{{ listing.title }}"
                 class="img-fluid"
               />
             </a>
           </div>
+        {% endif %}
+        {% if listing.photo_3 %}
           <div class="col-md-2">
             <a
-              href="assets/img/homes/home-inside-2.jpg"
+              href="{{ listing.photo_3.url }}"
               data-lightbox="home-images"
             >
               <img
-                src="assets/img/homes/home-inside-2.jpg"
-                alt=""
+                src="{{ listing.photo_3.url }}"
+                alt="{{ listing.title }}"
                 class="img-fluid"
               />
             </a>
           </div>
+        {% endif %}
+        {% if listing.photo_4 %}
           <div class="col-md-2">
             <a
-              href="assets/img/homes/home-inside-3.jpg"
+              href="{{ listing.photo_4.url }}"
               data-lightbox="home-images"
             >
               <img
-                src="assets/img/homes/home-inside-3.jpg"
-                alt=""
+                src="{{ listing.photo_4.url }}"
+                alt="{{ listing.title }}"
                 class="img-fluid"
               />
             </a>
           </div>
+        {% endif %}
+        {% if listing.photo_5 %}
           <div class="col-md-2">
             <a
-              href="assets/img/homes/home-inside-4.jpg"
+              href="{{ listing.photo_5.url }}"
               data-lightbox="home-images"
             >
               <img
-                src="assets/img/homes/home-inside-4.jpg"
-                alt=""
+                src="{{ listing.photo_5.url }}"
+                alt="{{ listing.title }}"
                 class="img-fluid"
               />
             </a>
           </div>
-          <div class="col-md-2">
-            <a
-              href="assets/img/homes/home-inside-5.jpg"
-              data-lightbox="home-images"
-            >
-              <img
-                src="assets/img/homes/home-inside-5.jpg"
-                alt=""
-                class="img-fluid"
-              />
-            </a>
-          </div>
-          <div class="col-md-2">
-            <a
-              href="assets/img/homes/home-inside-6.jpg"
-              data-lightbox="home-images"
-            >
-              <img
-                src="assets/img/homes/home-inside-6.jpg"
-                alt=""
-                class="img-fluid"
-              />
-            </a>
-          </div>
+        {% endif %}
         </div>
         <!-- Fields -->
         <div class="row mb-5 fields">
@@ -121,19 +105,19 @@
             <ul class="list-group list-group-flush">
               <li class="list-group-item text-secondary">
                 <i class="fas fa-money-bill-alt"></i> Asking Price:
-                <span class="float-right">$490,000</span>
+                <span class="float-right">$ {{ listing.price | intcomma }} </span>
               </li>
               <li class="list-group-item text-secondary">
                 <i class="fas fa-bed"></i> Bedrooms:
-                <span class="float-right">3</span>
+                <span class="float-right"> {{ listing.bedrooms }} </span>
               </li>
               <li class="list-group-item text-secondary">
                 <i class="fas fa-bath"></i> Bathrooms:
-                <span class="float-right">2</span>
+                <span class="float-right"> {{ listing.bathrooms }} </span>
               </li>
               <li class="list-group-item text-secondary">
                 <i class="fas fa-car"></i> Garage:
-                <span class="float-right">2 </span>
+                <span class="float-right"> {{ listing.garage }} </span>
               </li>
             </ul>
           </div>
@@ -141,19 +125,19 @@
             <ul class="list-group list-group-flush">
               <li class="list-group-item text-secondary">
                 <i class="fas fa-th-large"></i> Square Feet:
-                <span class="float-right">3200</span>
+                <span class="float-right"> {{ listing.sqft }} </span>
               </li>
               <li class="list-group-item text-secondary">
                 <i class="fas fa-square"></i> Lot Size:
-                <span class="float-right">2.5 Acres </span>
+                <span class="float-right"> {{ listing.lot_size }} Acres </span>
               </li>
               <li class="list-group-item text-secondary">
                 <i class="fas fa-calendar"></i> Listing Date:
-                <span class="float-right">8/30/2018</span>
+                <span class="float-right"> {{ listing.list_date }} </span>
               </li>
               <li class="list-group-item text-secondary">
                 <i class="fas fa-bed"></i> Realtor:
-                <span class="float-right">Kyle Brown </span>
+                <span class="float-right"> {{ listing.realtor }} </span>
               </li>
             </ul>
           </div>
@@ -162,11 +146,7 @@
         <!-- Description -->
         <div class="row mb-5">
           <div class="col-md-12">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia
-            recusandae esse reiciendis officia omnis non rerum dicta cupiditate
-            nostrum molestias deserunt aut minus inventore animi atque,
-            consequuntur ad fugit. Possimus culpa blanditiis repellendus ipsa
-            similique ullam, natus error dolor harum.
+            {{ listing.description }}
           </div>
         </div>
       </div>
@@ -174,12 +154,12 @@
         <div class="card mb-3">
           <img
             class="card-img-top"
-            src="assets/img/realtors/kyle.jpg"
+            src="{{ listing.realtor.photo.url }}"
             alt="Seller of the month"
           />
           <div class="card-body">
             <h5 class="card-title">Property Realtor</h5>
-            <h6 class="text-secondary">Kyle Brown</h6>
+            <h6 class="text-secondary"> {{ listing.realtor.name }} </h6>
           </div>
         </div>
         <button
