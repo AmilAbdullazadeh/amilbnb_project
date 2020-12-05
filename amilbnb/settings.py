@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
+from django.contrib.messages import constants as messages
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'pages',
     'listings',
     'realtors',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -134,3 +137,8 @@ STATICFILES_DIRS = [
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
