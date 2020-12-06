@@ -1,17 +1,20 @@
-{% extends 'base.html' %} 
-{% load humanize %} 
-
-{% block title %}My amazing site{% endblock %}
-
-{% block content %} 
-{% load static %}
+{% extends 'base.html' %} {% load humanize %} {% block title %} My amazing site {%endblock %} {% block content %} {% load static %}
 
 <!-- Showcase -->
-<section id="showcase-inner" class="showcase-search text-white py-5">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-md-12">
-                <form action="{% url 'search' %}">
+<section id="showcase">
+  <div class="container text-center">
+    <div class="home-search p-5">
+      <div class="overlay p-5">
+        <h1 class="display-4 mb-4">
+          Property Searching Just Got So Easy
+        </h1>
+        <p class="lead">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae
+          quas, asperiores eveniet vel nostrum magnam voluptatum tempore!
+          Consectetur, id commodi!
+        </p>
+        <div class="search">
+          <form action="{% url 'search' %}">
                     <!-- Form Row 1 -->
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
@@ -85,9 +88,10 @@
                         Submit form
                     </button>
                 </form>
-            </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>
 
 <!-- Alerts -->
@@ -98,58 +102,71 @@
   <div class="container">
     <h3 class="text-center mb-3">Latest Listings</h3>
     <div class="row">
-      {% if listings %}
-        {% for listing in listings %}
-        <!-- Listing -->
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="card listing-preview">
-            <img
-              class="card-img-top"
-              src="{{ listing.photo_main.url }}"
-              alt="{{ listing.title }}"
-            />
-            <div class="card-img-overlay">
-              <h2>
-                <span class="badge badge-secondary text-white">$ {{ listing.price }}</span>
-              </h2>
-            </div>
-            <div class="card-body">
-              <div class="listing-heading text-center">
-                <h4 class="text-primary">{{ listing.title }}</h4>
-                <p>
-                  <i class="fas fa-map-marker text-secondary"></i> {{ listing.city }}, {{ listing.state }}, {{ listing.zipcode }}
-                </p>
-              </div>
-              <hr />
-              <div class="row py-2 text-secondary">
-                <div class="col-6">
-                  <i class="fas fa-th-large"></i> Sqft: {{ listing.sqft }}
-                </div>
-                <div class="col-6"><i class="fas fa-car"></i> Garage: {{ listing.garage }}</div>
-              </div>
-              <div class="row py-2 text-secondary">
-                <div class="col-6"><i class="fas fa-bed"></i> Bedrooms: {{ listing.bedrooms }}</div>
-                <div class="col-6"><i class="fas fa-bath"></i> Bathrooms: {{ listing.bathrooms }}</div>
-              </div>
-              <hr />
-              <div class="row py-2 text-secondary">
-                <div class="col-6"><i class="fas fa-user"></i> {{ listing.realtor.name }} </div>
-              </div>
-              <div class="row text-secondary pb-2">
-                <div class="col-6"><i class="fas fa-clock"></i> {{ listing.list_date | timesince }} </div>
-              </div>
-              <hr />
-              <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-block"
-                >More Info</a
+      {% if listings %} {% for listing in listings %}
+      <!-- Listing -->
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card listing-preview">
+          <img
+            class="card-img-top"
+            src="{{ listing.photo_main.url }}"
+            alt="{{ listing.title }}"
+          />
+          <div class="card-img-overlay">
+            <h2>
+              <span class="badge badge-secondary text-white"
+                >$ {{ listing.price }}</span
               >
+            </h2>
+          </div>
+          <div class="card-body">
+            <div class="listing-heading text-center">
+              <h4 class="text-primary">{{ listing.title }}</h4>
+              <p>
+                <i class="fas fa-map-marker text-secondary"></i> {{ listing.city
+                }}, {{ listing.state }}, {{ listing.zipcode }}
+              </p>
             </div>
+            <hr />
+            <div class="row py-2 text-secondary">
+              <div class="col-6">
+                <i class="fas fa-th-large"></i> Sqft: {{ listing.sqft }}
+              </div>
+              <div class="col-6">
+                <i class="fas fa-car"></i> Garage: {{ listing.garage }}
+              </div>
+            </div>
+            <div class="row py-2 text-secondary">
+              <div class="col-6">
+                <i class="fas fa-bed"></i> Bedrooms: {{ listing.bedrooms }}
+              </div>
+              <div class="col-6">
+                <i class="fas fa-bath"></i> Bathrooms: {{ listing.bathrooms }}
+              </div>
+            </div>
+            <hr />
+            <div class="row py-2 text-secondary">
+              <div class="col-6">
+                <i class="fas fa-user"></i> {{ listing.realtor.name }}
+              </div>
+            </div>
+            <div class="row text-secondary pb-2">
+              <div class="col-6">
+                <i class="fas fa-clock"></i> {{ listing.list_date | timesince }}
+              </div>
+            </div>
+            <hr />
+            <a
+              href="{% url 'listing' listing.id %}"
+              class="btn btn-primary btn-block"
+              >More Info</a
+            >
           </div>
         </div>
-        {% endfor %}
-      {% else %}
-        <div class="col-md-12 col-12">
-            <p> No listings available </p>
-        </div>
+      </div>
+      {% endfor %} {% else %}
+      <div class="col-md-12 col-12">
+        <p>No listings available</p>
+      </div>
       {% endif %}
     </div>
   </div>
